@@ -1,0 +1,264 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Veggie Market</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<header>
+    <h1>🌱 VEGGIE MARKET</h1>
+    <p>Grow Your Wealth, One Veggie at a Time.</p>
+</header>
+
+<main>
+<div class="market-nav">
+    <a href="{{ url_for('market_history') }}">
+        📰 查看市場新聞與七日行情
+    </a>
+</div>
+    <section class="wallet">
+        <h2>MY WALLET</h2>
+        <p>可用資金</p>
+        <h1>NT$ {{ balance }}</h1>
+        
+<div class="profit-summary">
+
+    <h3>REALIZED PROFIT & LOSS</h3>
+
+    <p>累積已實現損益</p>
+
+    <h2>
+        NT$ {{ "%.2f"|format(realized_pnl) }}
+    </h2>
+
+</div>
+
+    </section>
+
+<section class="buy-panel">
+
+    <h2>🛒 Buy Stocks</h2>
+    <p>選擇想投資的蔬果，開始你的投資之旅！</p>
+
+    <form action="{{ url_for('buy_stock') }}"
+          method="POST">
+
+        <label for="stock_id">選擇股票</label>
+
+        <select name="stock_id"
+                id="stock_id"
+                required>
+
+            <optgroup label="🥬 蔬菜">
+                {% for stock in vegetables %}
+                <option value="{{ stock.id }}">
+                    {{ stock.name }} - NT${{ stock.price }}
+                </option>
+                {% endfor %}
+            </optgroup>
+
+            <optgroup label="🍓 水果">
+                {% for stock in fruits %}
+                <option value="{{ stock.id }}">
+                    {{ stock.name }} - NT${{ stock.price }}
+                </option>
+                {% endfor %}
+            </optgroup>
+
+        </select>
+
+        <label for="quantity">購買股數</label>
+
+        <input type="number"
+               id="quantity"
+               name="quantity"
+               min="1"
+               max="10000"
+               value="1"
+               required>
+
+        <button type="submit">
+            確認買入
+        </button>
+
+    </form>
+
+</section>
+
+<section class="holdings-panel">
+
+    <h2>💼 My Portfolio</h2>
+
+    {% if holdings %}
+
+        <table>
+            <thead>
+                <tr>
+                    <th>股票名稱</th>
+                    <th>持有股數</th>
+                    <th>總成本</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for holding in holdings %}
+                <tr>
+                    <td>{{ holding.name }}</td>
+                    <td>{{ holding.quantity }}</td>
+                    <td>NT${{ holding.total_cost }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    {% else %}
+
+        <p>目前還沒有持股，快來投資第一支蔬果吧！</p>
+
+    {% endif %}
+
+</section>
+
+<section class="sell-panel">
+
+    <h2>💰 Sell Stocks</h2>
+    <p>賣出你的蔬果股票，將資金收回錢包。</p>
+
+    {% if holdings %}
+
+    <form action="{{ url_for('sell_stock') }}"
+          method="POST">
+
+        <label for="sell_stock_id">
+            選擇要賣出的股票
+        </label>
+
+        <select name="stock_id"
+                id="sell_stock_id"
+                required>
+
+            {% for holding in holdings %}
+            <option value="{{ holding.stock_id }}">
+                {{ holding.name }}
+                （持有 {{ holding.quantity }} 股）
+            </option>
+            {% endfor %}
+
+        </select>
+
+        <label for="sell_quantity">
+            賣出數量
+        </label>
+
+        <input type="number"
+               name="quantity"
+               id="sell_quantity"
+               min="1"
+               max="10000"
+               value="1"
+               required>
+
+        <button type="submit">
+            確認賣出
+        </button>
+
+    </form>
+
+    {% else %}
+
+    <p>目前沒有持股，請先購買蔬果股票。</p>
+
+    {% endif %}
+
+</section>
+
+<section class="history-panel">
+
+    <h2>📜 Recent Transactions</h2>
+
+    {% if transactions %}
+
+        <table>
+            <thead>
+                <tr>
+                    <th>股票代號</th>
+                    <th>類型</th>
+                    <th>股數</th>
+                    <th>金額</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in transactions %}
+                <tr>
+                    <td>{{ record.stock_id }}</td>
+                    <td>{{ record.action }}</td>
+                    <td>{{ record.quantity }}</td>
+                    <td>NT${{ record.total }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    {% else %}
+        <p>尚無交易紀錄。</p>
+    {% endif %}
+
+</section>
+
+    <section class="market">
+
+        <h2>🥬 Vegetable Market</h2>
+
+        <div class="stock-grid">
+            {% for stock in vegetables %}
+            <div class="stock-card">
+                <h3>{{ stock.name }}</h3>
+                <p>代號：{{ stock.id }}</p>
+                <p>價格：NT$ {{ stock.price }}</p>
+                <p>風險：{{ stock.risk }}</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <h2>🍓 Fruit Market</h2>
+
+        <div class="stock-grid">
+            {% for stock in fruits %}
+            <div class="stock-card">
+                <h3>{{ stock.name }}</h3>
+                <p>代號：{{ stock.id }}</p>
+                <p>價格：NT$ {{ stock.price }}</p>
+                <p>風險：{{ stock.risk }}</p>
+            </div>
+            {% endfor %}
+        </div>
+
+    </section>
+
+</main>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="message {{ category }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<footer>
+    <p>© Veggie Market | Pixel Investment World</p>
+</footer>
+
+</body>
+</html>

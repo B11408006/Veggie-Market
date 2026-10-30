@@ -1,0 +1,23 @@
+
+[
+  {"id":"F01","name":"蘋果","price":105,"risk":"低"},
+  {"id":"F02","name":"香蕉","price":55,"risk":"高"},
+  {"id":"F03","name":"芒果","price":120,"risk":"高"},
+  {"id":"F04","name":"鳳梨","price":80,"risk":"中"},
+  {"id":"F05","name":"西瓜","price":68,"risk":"高"},
+  {"id":"F06","name":"草莓","price":145,"risk":"高"},
+  {"id":"F07","name":"葡萄","price":135,"risk":"中"},
+  {"id":"F08","name":"柳丁","price":65,"risk":"低"},
+  {"id":"F09","name":"橘子","price":60,"risk":"中"},
+  {"id":"F10","name":"檸檬","price":72,"risk":"中"},
+  {"id":"F11","name":"奇異果","price":115,"risk":"低"},
+  {"id":"F12","name":"火龍果","price":88,"risk":"中"},
+  {"id":"F13","name":"百香果","price":95,"risk":"高"},
+  {"id":"F14","name":"芭樂","price":58,"risk":"中"},
+  {"id":"F15","name":"木瓜","price":62,"risk":"中"},
+  {"id":"F16","name":"水蜜桃","price":140,"risk":"高"},
+  {"id":"F17","name":"梨子","price":108,"risk":"中"},
+  {"id":"F18","name":"櫻桃","price":150,"risk":"高"},
+  {"id":"F19","name":"蓮霧","price":125,"risk":"高"},
+  {"id":"F20","name":"荔枝","price":130,"risk":"高"}
+]

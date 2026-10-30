@@ -1,0 +1,323 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #F6F8F0;
+    color: #31452F;
+    font-family: "Courier New", monospace;
+}
+
+header {
+    text-align: center;
+    background: #C0D696;
+    padding: 35px 15px;
+    border-bottom: 4px solid #617D50;
+}
+
+header h1 {
+    margin: 0;
+    letter-spacing: 3px;
+}
+
+header p {
+    font-size: 13px;
+}
+
+main {
+    max-width: 1100px;
+    margin: auto;
+    padding: 25px;
+}
+
+.wallet {
+    background: white;
+    border: 3px solid #617D50;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 5px 5px 0 #C0D696;
+    margin-bottom: 40px;
+}
+
+.wallet h1 {
+    font-size: 32px;
+    color: #4C7544;
+}
+
+.market h2 {
+    margin-top: 35px;
+    border-bottom: 3px dashed #C0D696;
+    padding-bottom: 10px;
+}
+
+.stock-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fit, minmax(180px, 1fr));
+    gap: 18px;
+}
+
+.stock-card {
+    background: white;
+    border: 2px solid #A3BC83;
+    padding: 18px;
+    box-shadow: 4px 4px 0 #DCE8CD;
+    transition: transform 0.2s;
+}
+
+.stock-card:hover {
+    transform: translateY(-5px);
+    background: #F0F5E7;
+}
+
+.stock-card h3 {
+    margin-top: 0;
+    color: #496B40;
+}
+
+.stock-card p {
+    font-size: 14px;
+}
+
+footer {
+    margin-top: 50px;
+    background: #C0D696;
+    padding: 18px;
+    text-align: center;
+}
+
+/* 股票買入系統 */
+
+.buy-panel,
+.holdings-panel,
+.history-panel {
+    background: #FFFFFF;
+    border: 3px solid #8BA879;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 5px 5px 0 #DCE8CD;
+}
+
+.buy-panel h2,
+.holdings-panel h2,
+.history-panel h2 {
+    color: #496B40;
+}
+
+.buy-panel form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 450px;
+}
+
+.buy-panel label {
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+.buy-panel select,
+.buy-panel input {
+    padding: 12px;
+    font-size: 16px;
+    border: 2px solid #A3BC83;
+    border-radius: 5px;
+    background: #F6F8F0;
+}
+
+.buy-panel button {
+    background: #C0D696;
+    color: #31452F;
+    border: 2px solid #617D50;
+    padding: 14px;
+    margin-top: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 4px 4px 0 #8BA879;
+}
+
+.buy-panel button:hover {
+    background: #A9C585;
+}
+
+/* 持股和交易紀錄 */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th, td {
+    border: 1px solid #C0D696;
+    padding: 12px;
+    text-align: center;
+}
+
+th {
+    background: #C0D696;
+}
+
+tr:nth-child(even) {
+    background: #F6F8F0;
+}
+
+/* 操作訊息 */
+
+.message {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 2px solid;
+    font-weight: bold;
+}
+
+.message.success {
+    background: #E5F3D8;
+    border-color: #7DA968;
+    color: #3E7135;
+}
+
+.message.error {
+    background: #FBE5E5;
+    border-color: #D58B8B;
+    color: #A13F3F;
+}
+
+@media (max-width: 600px) {
+    .buy-panel,
+    .holdings-panel,
+    .history-panel {
+        padding: 15px;
+    }
+
+    th, td {
+        padding: 7px;
+        font-size: 12px;
+    }
+}
+
+/* 賣出系統 */
+
+.sell-panel {
+    background: #FFFFFF;
+    border: 3px solid #8BA879;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 5px 5px 0 #DCE8CD;
+}
+
+.sell-panel h2 {
+    color: #496B40;
+}
+
+.sell-panel form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 450px;
+}
+
+.sell-panel label {
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+.sell-panel select,
+.sell-panel input {
+    padding: 12px;
+    font-size: 16px;
+    border: 2px solid #A3BC83;
+    border-radius: 5px;
+    background: #F6F8F0;
+}
+
+.sell-panel button {
+    background: #E4B875;
+    color: #46381F;
+    border: 2px solid #A57B3C;
+    padding: 14px;
+    margin-top: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 4px 4px 0 #C9A46A;
+}
+
+.sell-panel button:hover {
+    background: #F1C88D;
+}
+
+/* 新聞中心與歷史行情 */
+
+.market-nav {
+    margin: 20px 0 30px;
+}
+
+.market-nav a {
+    display: inline-block;
+    background: #C0D696;
+    color: #31452F;
+    padding: 12px 18px;
+    text-decoration: none;
+    font-weight: bold;
+    border: 2px solid #617D50;
+}
+
+.market-nav a:hover {
+    background: #A9C585;
+}
+
+.news-section,
+.history-section {
+    margin-bottom: 40px;
+}
+
+.news-date {
+    margin-top: 25px;
+    color: #496B40;
+}
+
+.news-card {
+    background: #FFFFFF;
+    border-left: 6px solid #8BA879;
+    padding: 20px;
+    margin: 15px 0;
+    box-shadow: 4px 4px 0 #DCE8CD;
+}
+
+.news-card h3 {
+    margin-top: 0;
+    color: #496B40;
+}
+
+.news-card p {
+    line-height: 1.8;
+}
+
+.history-stock {
+    background: white;
+    border: 2px solid #A3BC83;
+    padding: 18px;
+    margin-bottom: 20px;
+}
+
+.history-stock h3 {
+    color: #496B40;
+}
+
+.table-scroll {
+    overflow-x: auto;
+}
+
+.price-up {
+    color: #B44F4F;
+    font-weight: bold;
+}
+
+.price-down {
+    color: #35815B;
+    font-weight: bold;
+}

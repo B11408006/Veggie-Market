@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Market News | Veggie Market</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<header>
+    <h1>🌱 VEGGIE MARKET</h1>
+    <p>Daily News & Market History</p>
+</header>
+
+<main>
+
+    <nav class="market-nav">
+        <a href="{{ url_for('index') }}">
+            🏠 返回交易首頁
+        </a>
+    </nav>
+
+    <section class="news-section">
+        <h2>📰 Market News</h2>
+        <p>過去七個交易日的市場新聞</p>
+
+        {% for day in news %}
+
+            <h3 class="news-date">
+                {{ day.date }}
+            </h3>
+
+            {% for article in day.articles %}
+
+                <article class="news-card">
+                    <h3>{{ article.title }}</h3>
+                    <p>{{ article.content }}</p>
+                </article>
+
+            {% endfor %}
+
+        {% endfor %}
+    </section>
+
+    <section class="history-section">
+
+        <h2>📈 Historical Stock Prices</h2>
+
+        <p>
+            觀察七個交易日的收盤價與漲跌幅，
+            分析不同蔬果的市場趨勢。
+        </p>
+
+        {% for stock in stocks %}
+
+        <div class="history-stock">
+
+            <h3>{{ stock.name }}</h3>
+
+            <p>
+                股票代號：{{ stock.id }}
+                ｜風險等級：{{ stock.risk }}
+            </p>
+
+            {% if stock.latest %}
+
+                <p>
+                    最新歷史收盤價：
+                    NT$ {{ "%.2f"|format(stock.latest.price) }}
+                </p>
+
+            {% endif %}
+
+            <div class="table-scroll">
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>日期</th>
+                            <th>收盤價</th>
+                            <th>漲跌幅</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for record in stock.records %}
+
+                        <tr>
+                            <td>{{ record.date }}</td>
+
+                            <td>
+                                NT$
+                                {{ "%.2f"|format(record.price) }}
+                            </td>
+
+                            <td class="{% if record.change > 0 %}price-up{% elif record.change < 0 %}price-down{% endif %}">
+
+                                {% if record.change > 0 %}
+                                    +
+                                {% endif %}
+
+                                {{ "%.2f"|format(record.change) }}%
+
+                            </td>
+                        </tr>
+
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </section>
+
+</main>
+
+<footer>
+    <p>© Veggie Market | Simulated Market Data</p>
+</footer>
+
+</body>
+</html>
